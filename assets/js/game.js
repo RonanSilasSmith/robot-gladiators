@@ -1,6 +1,8 @@
 var playerName = window.prompt("What is you characters name?");
 var playerHealth = 100;
 var playerAttack = 10;
+var playerMoney = 10;
+
 
 console.log(playerName, playerAttack, playerHealth);
 
@@ -43,7 +45,14 @@ var fight = function() {
             window.alert(playerName + " still has " + playerHealth + " health left.");    
         }
     }else if (promptFight === "skip" || promptFight === "SKIP"){
-        window.alert(playerName + " has chosen to skip the fight.")
+        var confirmSkip = window.confirm("are you sure you'd like to quit?");
+
+        if(confirmSkip){
+            window.alert(playerName + " has chosen to skip the fight. Goodbye!")
+            playerMoney -= 2;
+        }else{
+            fight();
+        }
     }else{
         window.alert("pick a valid option next time.")
     }
