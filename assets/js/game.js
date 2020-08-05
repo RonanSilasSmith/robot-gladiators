@@ -16,25 +16,34 @@ for(var i = 0; i < enemyNames.length; i++){
 
 
 var fight = function(enemyName) {
-    window.alert("welcome to Robot Gladiators");
+    if(playerHealth > 0){
+        window.alert("welcome to Robot Gladiators");
+    }
+    while(enemyHealth > 0 && playerHealth > 0){
+        var promptFight = window.prompt("would you like to FIGHT or SKIP this battle?");
+        if (promptFight === "skip" || promptFight === "SKIP"){
+            var confirmSkip = window.confirm("are you sure you'd like to quit?");
 
-    var promptFight = window.prompt("would you like to FIGHT or SKIP this battle?");
+            if(confirmSkip){
+                window.alert(playerName + " has chosen to skip the fight. Goodbye!")
+                playerMoney -= 10;
+                console.log("playerMoney", playerMoney);
+                break;
+            }
+        
 
-    if (promptFight === "fight" || promptFight === "FIGHT"){
-
-
+    
         enemyHealth = enemyHealth - playerAttack;
 
         console.log(
             playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health."
         )
-
         if (enemyHealth  <= 0){
             window.alert(enemyName + " has died!")
+            break;
         }else {
             window.alert(enemyName + "still has " + enemyHealth + " health left")
         }
-
 
         playerHealth = playerHealth - enemyAttack;
 
@@ -44,27 +53,19 @@ var fight = function(enemyName) {
 
         if(playerHealth <= 0){
             window.alert(playerName + " has died!");
+            break;
         }
         else{
             window.alert(playerName + " still has " + playerHealth + " health left.");    
         }
-    }else if (promptFight === "skip" || promptFight === "SKIP"){
-        var confirmSkip = window.confirm("are you sure you'd like to quit?");
-
-        if(confirmSkip){
-            window.alert(playerName + " has chosen to skip the fight. Goodbye!")
-            playerMoney -= 2;
-        }else{
-            fight();
-        }
-    }else{
-        window.alert("pick a valid option next time.")
+        
     }
-
 
 
 }
 
 for(var i = 0; i < enemyNames.length; i++){
-    fight(enemyNames(i))
+    var pickedEnemyName = enemyNames[i];
+    enemyHealth = 50;
+    fight(pickedEnemyName);
 }
