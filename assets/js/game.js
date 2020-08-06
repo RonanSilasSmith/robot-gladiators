@@ -4,15 +4,20 @@ var playerAttack = 10;
 var playerMoney = 10;
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = Math.floor((Math.random()* 21) + 40);
 var enemyAttack = 12;
 
+
+var randomNumber = function(min, max){
+    var value = Math.floor(Math.random()*(max-min + 1) + min);
+    return value;
+}
 
 for(var i = 0; i < enemyNames.length; i++){
     console.log(enemyNames[i]);
     console.log(i);
     console.log(enemyNames[i] + " is at "+ i + " index")
-}
+};
 
 
 var fight = function(enemyName) {
@@ -25,27 +30,27 @@ var fight = function(enemyName) {
             var confirmSkip = window.confirm("are you sure you'd like to quit?");
 
             if(confirmSkip){
-                window.alert(playerName + " has chosen to skip the fight. Goodbye!")
-                playerMoney -= 10;
+                window.alert(playerName + " has chosen to skip the fight. Goodbye!");
+                playerMoney = Math.max(0, playerMoney-10);
                 console.log("playerMoney", playerMoney);
                 break;
             }
         }
 
     
-        enemyHealth = enemyHealth - playerAttack;
+        enemyHealth = randomNumber();
 
         console.log(
             playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health."
         )
         if (enemyHealth  <= 0){
-            window.alert(enemyName + " has died!")
+            window.alert(enemyName + " has died!");
             break;
         }else {
-            window.alert(enemyName + "still has " + enemyHealth + " health left")
+            window.alert(enemyName + "still has " + enemyHealth + " health left");
         }
 
-        playerHealth = playerHealth - enemyAttack;
+        playerHealth = Math.max(0, playerHealth-enemyAttack);
 
         console.log(
             enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health."
@@ -81,7 +86,7 @@ var startGame = function(){
 
             var pickedEnemyName = enemyNames[i];
             
-            enemyHealth = 50;
+            enemyHealth = randomNumber(40,60);
 
             fight(pickedEnemyName);
 
